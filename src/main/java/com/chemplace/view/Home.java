@@ -22,6 +22,9 @@ import javax.swing.JPanel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.chemplace.view.help.SystemRequirement;
+import com.chemplace.view.help.TechnicalManual;
+import com.chemplace.view.help.UserManual;
 import com.chemplace.view.model.beans.ProjectTbl;
 import com.chemplace.view.model.dao.ProjectDao;
 @Component
@@ -39,14 +42,14 @@ public static	List<ProjectTbl> projectlist;
 	BarChartView barChartView;
 	@Autowired
 	LineChartView lineChartView;
-	@Autowired
-	UserManual userManual;
+//	@Autowired
+//	UserManual userManual;
 	@Autowired
 	AboutChemPlace aboutChemPlace;
-	@Autowired
-	SystemRequirement systemRequirement;
-	@Autowired
-	TechnicalManual technicalManual;
+//	@Autowired
+//	SystemRequirement systemRequirement;
+//	@Autowired
+//	TechnicalManual technicalManual;
 	@Autowired
 	ViewOutput viewOutput;
 	
@@ -77,31 +80,7 @@ public static	List<ProjectTbl> projectlist;
 	public static int ismoduleSelected=0;
 	
 
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				Home frame = new Home();
-				frame.setVisible(true);
-			}
-		});
-	}*/
-	
-	
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Home window = new Home();
-					window.frmChemplace.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
+
 
 	 
 
@@ -395,7 +374,8 @@ public static	List<ProjectTbl> projectlist;
 		JMenuItem mntmNewMenuItem_6 = new JMenuItem("System  Requirements");
 		mntmNewMenuItem_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			systemRequirement.setVisible(true);
+			 SystemRequirement systemRequirement=new SystemRequirement();
+			 //systemRequirement.setVisible(true);
 			}
 		});
 		mntmNewMenuItem_6.setFont(new Font("Arial", Font.BOLD, 12));
@@ -404,7 +384,8 @@ public static	List<ProjectTbl> projectlist;
 		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Technical Manual");
 		mntmNewMenuItem_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			technicalManual.setVisible(true);
+			TechnicalManual technicalManual=new TechnicalManual();
+			//technicalManual.setVisible(true);
 			}
 		});
 		mntmNewMenuItem_7.setFont(new Font("Arial", Font.BOLD, 12));
@@ -413,7 +394,9 @@ public static	List<ProjectTbl> projectlist;
 		JMenuItem mntmNewMenuItem_8 = new JMenuItem("User Manual");
 		mntmNewMenuItem_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			userManual.setVisible(true);
+			
+				UserManual userManual=new UserManual();
+				//userManual.setVisible(true);
 			}
 		});
 		mntmNewMenuItem_8.setFont(new Font("Arial", Font.BOLD, 12));
@@ -551,6 +534,7 @@ public static	List<ProjectTbl> projectlist;
 				   
 					 
 					inputModuleAcid_Carbonate.setVisible(true);
+					 
 					inputModuleAcid_Carbonate.resetFormData();
 				
 			}

@@ -36,6 +36,12 @@ import javax.swing.table.JTableHeader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.chemplace.view.help.HelpAcidInjectionPlan;
+import com.chemplace.view.help.HelpAdditionalInput;
+import com.chemplace.view.help.HelpFluidProperties;
+import com.chemplace.view.help.HelpReservoirLithology;
+import com.chemplace.view.help.HelpSensitivityAnalysis;
+import com.chemplace.view.help.HelpWellCompletionData;
 import com.chemplace.view.model.beans.AcidInjectionTbl;
 import com.chemplace.view.model.beans.AdditionalInpuDataTbl;
 import com.chemplace.view.model.beans.FluidPropertiesTbl;
@@ -63,7 +69,9 @@ public class InputModuleAcid_Carbonate extends JFrame {
 	final JScrollPane scrollPane;
 	   JButton btnSave;
 	 
-	
+	 /* @Autowired
+	  HelpReservoirLithology helpReservoirLithology;*/
+	   
 	ProjectTbl projectTblglobal;
 	boolean isupadate=false;
 	@Autowired
@@ -215,6 +223,7 @@ public class InputModuleAcid_Carbonate extends JFrame {
 		panel_1.setLayout(null);
 		
 		JLabel lblWellName = new JLabel("Well Name");
+		lblWellName.setFocusable(true);
 		lblWellName.setForeground(Color.BLACK);
 		lblWellName.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblWellName.setBounds(10, 0, 94, 30);
@@ -229,7 +238,9 @@ public class InputModuleAcid_Carbonate extends JFrame {
 				if(textWellnameget.equalsIgnoreCase(""))
 				{
 					
+					System.out.println("this block is runnng");
 					textWellname.setBackground(Color.red);
+					 
 					JOptionPane.showMessageDialog(null, "Please enter well name");
 				}
 				else
@@ -263,6 +274,29 @@ public class InputModuleAcid_Carbonate extends JFrame {
 		panel_2.add(lblNoOfLayers);
 		
 		textlayerNo = new JTextField();
+		textlayerNo.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				String getlayerno=textlayerNo.getText();
+				if(getlayerno.equalsIgnoreCase(""))
+				{
+					textlayerNo.setBackground(Color.red);
+				    JOptionPane.showMessageDialog(null, "Please enter no of layer.");
+				}
+				else if(!isInteger(getlayerno,10))
+				{
+					textlayerNo.setBackground(Color.red);
+					JOptionPane.showMessageDialog(null, "Please enter only numeric no.");
+				}
+					
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				textlayerNo.setBackground(Color.WHITE);
+			}
+		});
 		 
 		textlayerNo.addKeyListener(new KeyAdapter() {
 			@Override
@@ -456,6 +490,28 @@ public class InputModuleAcid_Carbonate extends JFrame {
 		panel_5.add(lblLateralslantedft);
 		
 		wellmd = new JTextField();
+		wellmd.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=wellmd.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					wellmd.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				wellmd.setBackground(Color.WHITE);
+				
+			}
+		});
 		wellmd.setBounds(130, 74, 106, 20);
 		panel_5.add(wellmd);
 		wellmd.setColumns(10);
@@ -473,26 +529,139 @@ public class InputModuleAcid_Carbonate extends JFrame {
 		panel_5.add(lblLateralAtDepthft);
 		
 		perfdia = new JTextField();
+		perfdia.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				String textWelldia=perfdia.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					perfdia.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				perfdia.setBackground(Color.WHITE);
+				
+				
+			}	
+				
+			
+		});
 		perfdia.setBounds(377, 49, 117, 17);
 		panel_5.add(perfdia);
 		perfdia.setColumns(10);
 		
 		lateraldepth = new JTextField();
+		lateraldepth.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=lateraldepth.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					lateraldepth.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				lateraldepth.setBackground(Color.WHITE);
+				
+			}
+		});
 		lateraldepth.setBounds(377, 99, 117, 20);
 		panel_5.add(lateraldepth);
 		lateraldepth.setColumns(10);
 		
 		welldia = new JTextField();
+		welldia.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				
+				String textWelldia=welldia.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					welldia.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				welldia.setBackground(Color.WHITE);
+				
+				
+			}
+		});
 		welldia.setBounds(130, 49, 106, 20);
 		panel_5.add(welldia);
 		welldia.setColumns(10);
 		
 		lateradepth = new JTextField();
+		lateradepth.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=lateradepth.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					lateradepth.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				lateradepth.setBackground(Color.WHITE);
+				
+				
+			}
+		});
 		lateradepth.setBounds(130, 99, 106, 20);
 		panel_5.add(lateradepth);
 		lateradepth.setColumns(10);
 		
 		welltvd = new JTextField();
+		welltvd.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				String textWelldia=welltvd.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					welltvd.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				welltvd.setBackground(Color.WHITE);
+				
+			}
+		});
 		welltvd.setBounds(377, 74, 117, 20);
 		panel_5.add(welltvd);
 		welltvd.setColumns(10);
@@ -509,6 +678,13 @@ public class InputModuleAcid_Carbonate extends JFrame {
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		JButton btnHelp_3 = new JButton("Help");
+		btnHelp_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				HelpWellCompletionData helpWellCompletionData=new HelpWellCompletionData();
+				
+				
+			}
+		});
 		btnHelp_3.setBounds(415, 0, 89, 21);
 		panel_13.add(btnHelp_3);
 		
@@ -554,6 +730,13 @@ public class InputModuleAcid_Carbonate extends JFrame {
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		JButton btnHelp_5 = new JButton("Help");
+		btnHelp_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				HelpAdditionalInput helpAdditionalInput=new HelpAdditionalInput();
+				
+			}
+		});
 		btnHelp_5.setBounds(415, 0, 89, 21);
 		panel_10.add(btnHelp_5);
 		
@@ -606,31 +789,159 @@ public class InputModuleAcid_Carbonate extends JFrame {
 		panel_7.add(lblPostProdbblsd);
 		
 		maxpress = new JTextField();
+		maxpress.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=maxpress.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					maxpress.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				maxpress.setBackground(Color.WHITE);
+				
+			}
+		});
 		maxpress.setBounds(147, 73, 89, 20);
 		panel_7.add(maxpress);
 		maxpress.setColumns(10);
 		
 		tubfc = new JTextField();
+		tubfc.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=tubfc.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					tubfc.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				tubfc.setBackground(Color.WHITE);
+			}
+		});
 		tubfc.setBounds(147, 98, 89, 20);
 		panel_7.add(tubfc);
 		tubfc.setColumns(10);
 		
 		driverterconsk = new JTextField();
+		driverterconsk.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=driverterconsk.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					driverterconsk.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+			 
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				driverterconsk.setBackground(Color.WHITE);
+				
+				
+			}
+		});
 		driverterconsk.setBounds(147, 124, 89, 20);
 		panel_7.add(driverterconsk);
 		driverterconsk.setColumns(10);
 		
 		rockdensity = new JTextField();
+		rockdensity.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=rockdensity.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					rockdensity.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				rockdensity.setBackground(Color.WHITE);
+			}
+		});
 		rockdensity.setBounds(147, 149, 89, 20);
 		panel_7.add(rockdensity);
 		rockdensity.setColumns(10);
 		
 		nooftimesteps = new JTextField();
+		nooftimesteps.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				String textWelldia=nooftimesteps.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					nooftimesteps.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				nooftimesteps.setBackground(Color.WHITE);
+				
+				
+			}
+		});
 		nooftimesteps.setBounds(147, 174, 89, 20);
 		panel_7.add(nooftimesteps);
 		nooftimesteps.setColumns(10);
 		
 		postprodbblsd = new JTextField();
+		postprodbblsd.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=postprodbblsd.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					postprodbblsd.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				postprodbblsd.setBackground(Color.WHITE);
+			}
+		});
 		postprodbblsd.setBounds(147, 199, 89, 20);
 		panel_7.add(postprodbblsd);
 		postprodbblsd.setColumns(10);
@@ -656,6 +967,27 @@ public class InputModuleAcid_Carbonate extends JFrame {
 		panel_7.add(lblFracApperTureft);
 		
 		fracApperture = new JTextField();
+		fracApperture.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=fracApperture.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					fracApperture.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				fracApperture.setBackground(Color.WHITE);
+			}
+		});
 		fracApperture.setBounds(147, 227, 89, 18);
 		panel_7.add(fracApperture);
 		fracApperture.setColumns(10);
@@ -677,36 +1009,186 @@ public class InputModuleAcid_Carbonate extends JFrame {
 		panel_7.add(lblFraclengthft);
 		
 		fracpress = new JTextField();
+		fracpress.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=fracpress.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					fracpress.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				 
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				fracpress.setBackground(Color.WHITE);
+			}
+		});
 		fracpress.setBounds(391, 73, 89, 20);
 		panel_7.add(fracpress);
 		fracpress.setColumns(10);
 		
 		formvf = new JTextField();
+		formvf.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				String textWelldia=formvf.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					formvf.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				formvf.setBackground(Color.WHITE);
+				 
+			}
+		});
 		formvf.setBounds(390, 98, 90, 20);
 		panel_7.add(formvf);
 		formvf.setColumns(10);
 		
 		driverterconn = new JTextField();
+		driverterconn.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=driverterconn.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					driverterconn.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				driverterconn.setBackground(Color.WHITE);
+				
+				
+			}
+		});
 		driverterconn.setBounds(391, 124, 89, 20);
 		panel_7.add(driverterconn);
 		driverterconn.setColumns(10);
 		
 		fraclength = new JTextField();
+		fraclength.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				String textWelldia=fraclength.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					fraclength.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				fraclength.setBackground(Color.WHITE);
+				
+				
+			}
+		});
 		fraclength.setBounds(391, 149, 89, 20);
 		panel_7.add(fraclength);
 		fraclength.setColumns(10);
 		
 		noofgrids = new JTextField();
+		noofgrids.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				String textWelldia=noofgrids.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					noofgrids.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				noofgrids.setBackground(Color.WHITE);
+				
+			}
+		});
 		noofgrids.setBounds(391, 174, 89, 20);
 		panel_7.add(noofgrids);
 		noofgrids.setColumns(10);
 		
 		postprodpress = new JTextField();
+		postprodpress.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=postprodpress.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					postprodpress.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				postprodpress.setBackground(Color.WHITE);
+				
+			}
+		});
 		postprodpress.setBounds(390, 199, 90, 20);
 		panel_7.add(postprodpress);
 		postprodpress.setColumns(10);
 		
 		fraclengthft = new JTextField();
+		fraclengthft.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=fraclengthft.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					fraclengthft.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				fraclengthft.setBackground(Color.WHITE);
+				
+			}
+		});
 		fraclengthft.setBounds(391, 225, 89, 20);
 		panel_7.add(fraclengthft);
 		fraclengthft.setColumns(10);
@@ -724,6 +1206,28 @@ public class InputModuleAcid_Carbonate extends JFrame {
 		panel_7.add(lblJetDia);
 		
 		jetdia = new JTextField();
+		jetdia.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				String textWelldia=jetdia.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					jetdia.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				jetdia.setBackground(Color.WHITE);
+				
+				 
+			}
+		});
 		jetdia.setBounds(391, 48, 89, 20);
 		panel_7.add(jetdia);
 		jetdia.setColumns(10);
@@ -751,6 +1255,11 @@ public class InputModuleAcid_Carbonate extends JFrame {
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		JButton btnHelp_4 = new JButton("Help");
+		btnHelp_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				HelpFluidProperties helpFluidProperties=new HelpFluidProperties();
+			}
+		});
 		btnHelp_4.setBounds(415, 0, 89, 21);
 		panel_12.add(btnHelp_4);
 		
@@ -779,16 +1288,83 @@ public class InputModuleAcid_Carbonate extends JFrame {
 		panel_8.add(lblResGasDensitykgm);
 		
 		resoildensity = new JTextField();
+		resoildensity.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				String textWelldia=resoildensity.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					resoildensity.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				resoildensity.setBackground(Color.WHITE);
+				
+				
+			}
+		});
 		resoildensity.setBounds(172, 53, 77, 20);
 		panel_8.add(resoildensity);
 		resoildensity.setColumns(10);
 		
 		reswaterdensity = new JTextField();
+		reswaterdensity.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=reswaterdensity.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					reswaterdensity.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				reswaterdensity.setBackground(Color.WHITE);
+				
+			}
+		});
 		reswaterdensity.setBounds(172, 79, 77, 22);
 		panel_8.add(reswaterdensity);
 		reswaterdensity.setColumns(10);
 		
 		resgasdencity = new JTextField();
+		resgasdencity.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=resgasdencity.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					resgasdencity.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				resgasdencity.setBackground(Color.WHITE);
+				
+			
+			}
+		});
 		resgasdencity.setBounds(172, 104, 77, 20);
 		panel_8.add(resgasdencity);
 		resgasdencity.setColumns(10);
@@ -806,16 +1382,82 @@ public class InputModuleAcid_Carbonate extends JFrame {
 		panel_8.add(lblResGasViscp);
 		
 		resoil = new JTextField();
+		resoil.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=resoil.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					resoil.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				resoil.setBackground(Color.WHITE);
+				
+			}
+		});
 		resoil.setBounds(388, 53, 106, 20);
 		panel_8.add(resoil);
 		resoil.setColumns(10);
 		
 		reswatervisc = new JTextField();
+		reswatervisc.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=reswatervisc.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					reswatervisc.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				reswatervisc.setBackground(Color.WHITE);
+				
+			}
+		});
 		reswatervisc.setBounds(388, 78, 106, 20);
 		panel_8.add(reswatervisc);
 		reswatervisc.setColumns(10);
 		
 		resgasvis = new JTextField();
+		resgasvis.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				String textWelldia=resgasvis.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					resgasvis.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				resgasvis.setBackground(Color.WHITE);	
+				
+				
+			}
+		});
 		resgasvis.setBounds(388, 104, 106, 20);
 		panel_8.add(resgasvis);
 		resgasvis.setColumns(10);
@@ -829,6 +1471,27 @@ public class InputModuleAcid_Carbonate extends JFrame {
 		panel_8.add(lblAcidDensitykgm);
 		
 		aciddencity = new JTextField();
+		aciddencity.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				String textWelldia=aciddencity.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					aciddencity.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				aciddencity.setBackground(Color.WHITE);
+				
+			}
+		});
 		aciddencity.setBounds(172, 28, 77, 20);
 		panel_8.add(aciddencity);
 		aciddencity.setColumns(10);
@@ -838,6 +1501,28 @@ public class InputModuleAcid_Carbonate extends JFrame {
 		panel_8.add(lblNewLabel_6);
 		
 		aciddissolving = new JTextField();
+		aciddissolving.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				String textWelldia=aciddissolving.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					aciddissolving.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				aciddissolving.setBackground(Color.WHITE);
+				
+				
+			}
+		});
 		aciddissolving.setBounds(388, 28, 106, 20);
 		panel_8.add(aciddissolving);
 		aciddissolving.setColumns(10);
@@ -897,91 +1582,472 @@ public class InputModuleAcid_Carbonate extends JFrame {
 		panel_9.add(DiverterSherConsn);
 		
 		dcase1 = new JTextField();
+		dcase1.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=dcase1.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					dcase1.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				dcase1.setBackground(Color.WHITE);
+			}
+		});
 		dcase1.setBounds(227, 48, 124, 20);
 		panel_9.add(dcase1);
 		dcase1.setColumns(10);
 		
 		dcase2 = new JTextField();
+		dcase2.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=dcase2.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					dcase2.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				dcase2.setBackground(Color.WHITE);
+			}
+		});
+		
 		dcase2.setBounds(378, 48, 125, 20);
 		panel_9.add(dcase2);
 		dcase2.setColumns(10);
 		
 		dcase3 = new JTextField();
+		dcase3.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=dcase3.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					dcase3.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				dcase3.setBackground(Color.WHITE);
+			}
+		});
+		
+		
 		dcase3.setBounds(536, 48, 124, 20);
 		panel_9.add(dcase3);
 		dcase3.setColumns(10);
 		
 		pcase1 = new JTextField();
+		pcase1.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=pcase1.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					pcase1.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				pcase1.setBackground(Color.WHITE);
+			}
+		});
 		pcase1.setBounds(227, 73, 124, 20);
 		panel_9.add(pcase1);
 		pcase1.setColumns(10);
 		
 		pcase2 = new JTextField();
+		pcase2.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=pcase2.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					pcase2.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				pcase2.setBackground(Color.WHITE);
+			}
+		});
 		pcase2.setBounds(378, 73, 125, 20);
 		panel_9.add(pcase2);
 		pcase2.setColumns(10);
 		
 		pacase3 = new JTextField();
+		pacase3.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=pacase3.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					pacase3.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				pacase3.setBackground(Color.WHITE);
+			}
+		});
 		pacase3.setBounds(536, 73, 124, 20);
 		panel_9.add(pacase3);
 		pacase3.setColumns(10);
 		
 		acidcase1 = new JTextField();
+		acidcase1.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=acidcase1.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					acidcase1.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+				}
+				
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				acidcase1.setBackground(Color.WHITE);
+			}
+		});
 		acidcase1.setBounds(227, 98, 124, 20);
 		panel_9.add(acidcase1);
 		acidcase1.setColumns(10);
 		
 		acidvolcase1 = new JTextField();
+		acidvolcase1.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=acidvolcase1.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					acidvolcase1.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				acidvolcase1.setBackground(Color.WHITE);
+			}
+		});
 		acidvolcase1.setBounds(227, 122, 124, 20);
 		panel_9.add(acidvolcase1);
 		acidvolcase1.setColumns(10);
 		
 		dscase1 = new JTextField();
+		dscase1.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=dscase1.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					dscase1.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				dscase1.setBackground(Color.WHITE);
+			}
+		});
 		dscase1.setBounds(227, 149, 124, 20);
 		panel_9.add(dscase1);
 		dscase1.setColumns(10);
 		
 		dsncae1 = new JTextField();
+		dsncae1.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=dsncae1.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					dsncae1.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				dsncae1.setBackground(Color.WHITE);
+			}
+		});
 		dsncae1.setBounds(227, 177, 124, 20);
 		panel_9.add(dsncae1);
 		dsncae1.setColumns(10);
 		
 		acidcase2 = new JTextField();
+		acidcase2.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=acidcase2.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					acidcase2.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				acidcase2.setBackground(Color.WHITE);
+			}
+		});
 		acidcase2.setBounds(378, 98, 125, 20);
 		panel_9.add(acidcase2);
 		acidcase2.setColumns(10);
 		
 		acidvolcase2 = new JTextField();
+		acidvolcase2.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=acidvolcase2.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					acidvolcase2.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				acidvolcase2.setBackground(Color.WHITE);
+			}
+		});
 		acidvolcase2.setBounds(378, 122, 125, 20);
 		panel_9.add(acidvolcase2);
 		acidvolcase2.setColumns(10);
 		
 		dscase2 = new JTextField();
+		dscase2.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=dscase2.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					dscase2.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				dscase2.setBackground(Color.WHITE);
+			}
+		});
 		dscase2.setBounds(378, 147, 125, 20);
 		panel_9.add(dscase2);
 		dscase2.setColumns(10);
 		
 		dsncae2 = new JTextField();
+		dsncae2.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=dsncae2.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					dsncae2.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				dsncae2.setBackground(Color.WHITE);
+			}
+		});
 		dsncae2.setBounds(378, 177, 125, 20);
 		panel_9.add(dsncae2);
 		dsncae2.setColumns(10);
 		
 		acidcase3 = new JTextField();
+		acidcase3.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=acidcase3.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					acidcase3.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				acidcase3.setBackground(Color.WHITE);
+			}
+		});
 		acidcase3.setBounds(536, 98, 124, 20);
 		panel_9.add(acidcase3);
 		acidcase3.setColumns(10);
 		
 		acidvolcase3 = new JTextField();
+		acidvolcase3.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=acidvolcase3.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					acidvolcase3.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				acidvolcase3.setBackground(Color.WHITE);
+			}
+		});
 		acidvolcase3.setBounds(536, 122, 124, 20);
 		panel_9.add(acidvolcase3);
 		acidvolcase3.setColumns(10);
 		
 		dscase3 = new JTextField();
+		dscase3.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=dscase3.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					dscase3.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				dscase3.setBackground(Color.WHITE);
+			}
+		});
 		dscase3.setBounds(536, 147, 124, 20);
 		panel_9.add(dscase3);
 		dscase3.setColumns(10);
 		
 		dsncae3 = new JTextField();
+		dsncae3.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				String textWelldia=dsncae3.getText().toString();
+				if(!isFloat(textWelldia))
+				{
+					dsncae3.setBackground(Color.RED);
+					JOptionPane.showMessageDialog(null, "Please enter numerical value");
+
+				}
+				
+				
+				
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				
+				dsncae3.setBackground(Color.WHITE);
+			}
+		});
 		dsncae3.setBounds(536, 177, 124, 20);
 		panel_9.add(dsncae3);
 		dsncae3.setColumns(10);
@@ -1016,6 +2082,12 @@ public class InputModuleAcid_Carbonate extends JFrame {
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		JButton btnHelp_2 = new JButton("Help");
+		btnHelp_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				HelpSensitivityAnalysis helpSensitivityAnalysis=new HelpSensitivityAnalysis();
+				
+			}
+		});
 		btnHelp_2.setBounds(579, 0, 89, 21);
 		panel_11.add(btnHelp_2);
 	 
@@ -1031,6 +2103,13 @@ public class InputModuleAcid_Carbonate extends JFrame {
 		 lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
 		 
 		 JButton btnHelp = new JButton("Help");
+		 btnHelp.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent arg0) {
+		 		HelpReservoirLithology helpReservoirLithology=new HelpReservoirLithology();
+		 		
+		 		 
+		 	}
+		 });
 		 btnHelp.setBounds(578, 0, 89, 20);
 		 panel_14.add(btnHelp);
 		 
@@ -1046,6 +2125,13 @@ public class InputModuleAcid_Carbonate extends JFrame {
 		 lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
 		 
 		 JButton btnHelp_1 = new JButton("Help");
+		 btnHelp_1.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent arg0) {
+		 		
+		 		
+		 		HelpAcidInjectionPlan helpAcidInjectionPlan=new HelpAcidInjectionPlan();
+		 	}
+		 });
 		 btnHelp_1.setBounds(579, -1, 89, 20);
 		 panel_15.add(btnHelp_1);
 		 
@@ -1098,8 +2184,9 @@ public class InputModuleAcid_Carbonate extends JFrame {
 		  		
 		  		 try
 				 {
-				      
 		  			
+		  			if(isallfielavailable()) 
+		  			{
 		  		  List<ProjectTbl> projectdetail=projectDao.getProjectDetail(Home.getCurrentProjectid());
 				  
 				  ProjectTbl projectTbl=new ProjectTbl();
@@ -1141,6 +2228,13 @@ public class InputModuleAcid_Carbonate extends JFrame {
               	  	 JOptionPane.showMessageDialog(null, "Input data hase been saved successfully.");
 
           	  	 }
+				 }
+		  			else
+		  			{
+	              	  	 JOptionPane.showMessageDialog(null, "Please enter all field data.");
+	
+		  			}
+		  			
           	  	 }
 				 catch(Exception e)
 				 {
@@ -1776,16 +2870,454 @@ private void getSensitivityAnalysisTbl(int projectid,File file) {
 	textINJStages.setText(noOfinjection);
 	
 }
+    
+     public boolean isallfielavailable()
+     {
+		int ismessageshow=0;
+    	 //jetdia.setText("");
+    	 if(jetdia.getText().toString().equalsIgnoreCase(""))
+    	 {
+    		 ismessageshow=1;
+    		 jetdia.setBackground(Color.red);
+    		 //JOptionPane.showMessageDialog(null, "Please fill all fields.");
+    	 }
+    	 
+    	 
+    	 if(maxpress.getText().toString().equalsIgnoreCase(""))
+    	 {
+    		 ismessageshow=1;
+    		 maxpress.setBackground(Color.red);
+    	  
+    	 
+    	 }
+    	
+    	 if(fracpress.getText().toString().equalsIgnoreCase(""))
+    	 {
+    		 ismessageshow=1;
+       		fracpress.setBackground(Color.red);
+    		 
+    	 }
+    	 
+    	  if(tubfc.getText().toString().equalsIgnoreCase(""))
+    	 {
+     		 
+     		 
+       		  ismessageshow=1;
+       		  tubfc.setBackground(Color.red);
+         	  
+     	 }
+    	 
+    	  if(formvf.getText().toString().equalsIgnoreCase(""))
+    	 {
+    		  ismessageshow=1;
+    		  formvf.setBackground(Color.red);
+    		 
+      	 }
+    	 
+    	 if(driverterconsk.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		   
+   		  ismessageshow=1;
+   		  driverterconsk.setBackground(Color.red);
+     	     
+ 	      }
+    	  if(driverterconsk.getText().toString().equalsIgnoreCase(""))
+    	 {
+      		  
+      	   		  ismessageshow=1;
+      	   		driverterconsk.setBackground(Color.red);
+      	     	  
+      	 	 }
+    	   if(rockdensity.getText().toString().equalsIgnoreCase(""))
+    	 {
+     		   
+     	   	    
+     	   		  ismessageshow=1;
+     	   		rockdensity.setBackground(Color.red);
+     	     	    
+     	 	 }
+    	   if(fraclength.getText().toString().equalsIgnoreCase(""))
+    	 { 
+    	   		  ismessageshow=1;
+    	   		fraclength.setBackground(Color.red);
+    	     	    
+    	 	 }
+    	   if(nooftimesteps.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		   
+	   		  ismessageshow=1;
+	   		nooftimesteps.setBackground(Color.red);
+	     	      
+	 	 }
+    	   if(noofgrids.getText().toString().equalsIgnoreCase(""))
+    	 {
+      		   
+   	   		    ismessageshow=1;
+   	   	        noofgrids.setBackground(Color.red);
+   	     	     
+   	 	 }
+    	   if(postprodbblsd.getText().toString().equalsIgnoreCase(""))
+    	 { 
+      	   		    ismessageshow=1;
+      	   		postprodbblsd.setBackground(Color.red);
+      	     	  
+      	 	 }
+    	   if(postprodpress.getText().toString().equalsIgnoreCase(""))
+    	 {
+    		   
+     	   		    ismessageshow=1;
+     	   		postprodbblsd.setBackground(Color.red);
+     	     	     
+     	 	 }
+    	   if(fracApperture.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		   
+	   		    ismessageshow=1;
+	   		 fracApperture.setBackground(Color.red);
+	     	     
+	 	 }
+    	   if(fraclengthft.getText().toString().equalsIgnoreCase(""))
+    	 {
+      		   
+   	   		    ismessageshow=1;
+   	   		fraclengthft.setBackground(Color.red);
+   	     	      
+   	 	 }
+    	   if(dcase1.getText().toString().equalsIgnoreCase(""))
+    	 {
+     		  
+      	   		    ismessageshow=1;
+      	   		dcase1.setBackground(Color.red);
+      	     	     
+      	 	 }
+    	   if(dcase1.getText().toString().equalsIgnoreCase(""))
+    	 { 
+     	   		    ismessageshow=1;
+     	   		dcase1.setBackground(Color.red);
+     	     	   
+     	 	 }
+    	   if(dcase2.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		   
+	   		    ismessageshow=1;
+	   		 dcase2.setBackground(Color.red);
+    	 }
+    	   if(dcase3.getText().toString().equalsIgnoreCase(""))
+    	 {
+    	   		  
+    		   		    ismessageshow=1;
+    		   		 dcase3.setBackground(Color.red);
+    		      
+    		 	 }
+    	 
+    	   if(pcase1.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		   
+	   		    ismessageshow=1;
+	   		 pcase1.setBackground(Color.red);
+	     	     
+	 	 }
+    	   if(pcase2.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		   
+	   		    ismessageshow=1;
+	   		 pcase2.setBackground(Color.red);
+	     	     
+	 	 }
+    	   if(pacase3.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		   
+	   		    ismessageshow=1;
+	   		 pacase3.setBackground(Color.red);
+	     	      
+	 	 }
+    	 
+    	 
+    	   if(acidcase1.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		   
+	   		    ismessageshow=1;
+	   		 acidcase1.setBackground(Color.red);
+	     	     
+	 	 }
+    	   if(acidcase2.getText().toString().equalsIgnoreCase(""))
+    	 {
+    	   		 
+    		   		    ismessageshow=1;
+    		   		 acidcase2.setBackground(Color.red);
+    		     	     
+    		 	 }
+    	   if(acidcase3.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		   
+	   		    ismessageshow=1;
+	   		 acidcase3.setBackground(Color.red);
+	     	     
+	 	 }
+    	 
+    	 
+    	   if(acidvolcase1.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		   
+	   		    ismessageshow=1;
+	   		 acidvolcase1.setBackground(Color.red);
+	     	      
+	 	 }
+    	   if(acidvolcase2.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		      ismessageshow=1;
+	   		 acidvolcase2.setBackground(Color.red);
+	     	      
+	 	 }
+    	   if(acidvolcase3.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		   
+	   		    ismessageshow=1;
+	   		 acidvolcase3.setBackground(Color.red);
+	     	     
+	 	 }
+    	 
+    	 
+    	 
+    	   if(dscase1.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		      ismessageshow=1;
+	   		 dscase1.setBackground(Color.red);
+	     	     
+	 	 }
+    	   if(dscase2.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		   
+	   		    ismessageshow=1;
+	   		 dscase2.setBackground(Color.red);
+	     	     
+	 	 }
+    	   if(dscase3.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		   
+	   		    ismessageshow=1;
+	   		 dscase3.setBackground(Color.red);
+	     	      
+	 	 }
+    	 
+    	 
+    	   if(dsncae1.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		   
+	   		    ismessageshow=1;
+	   		 dsncae1.setBackground(Color.red);
+	     	      
+	 	 }
+    	   if(dsncae2.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		   
+	   		    ismessageshow=1;
+	   		 dsncae2.setBackground(Color.red);
+	     	      
+	 	 }
+    	   if(dsncae3.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		   
+	   		    ismessageshow=1;
+	   		 dsncae3.setBackground(Color.red);
+	     	      
+	 	 }
+    	 
+
+  
+    	   if(resoildensity.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		     ismessageshow=1;
+	   		 resoildensity.setBackground(Color.red);
+	     	      
+	 	 }
+    	   if(resoil.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		   
+	   		    ismessageshow=1;
+	   		 resoil.setBackground(Color.red);
+	     	      
+	 	 }
+    	 
+    	 
+    	 
+    	   if(reswaterdensity.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		   
+	   		    ismessageshow=1;
+	   		 reswaterdensity.setBackground(Color.red);
+	     	 
+	 	 }
+    	   if(reswatervisc.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		   
+	   		    ismessageshow=1;
+	   		 reswatervisc.setBackground(Color.red);
+	     	     
+	 	 }
+    	 
+    	 
+    	   if(resgasdencity.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		   
+	   		    ismessageshow=1;
+	   		 resgasdencity.setBackground(Color.red);
+	     	      
+	 	 }
+    	   if(resgasvis.getText().toString().equalsIgnoreCase(""))
+    	 {
+    	   		   
+    		   		    ismessageshow=1;
+    		   		 resgasvis.setBackground(Color.red);
+    		     	      
+    		 	 }
+    	 
+    	   if(welldia.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		   
+	   		    ismessageshow=1;
+	   		 welldia.setBackground(Color.red);
+	     	      
+	 	 }
+    	   if(perfdia.getText().toString().equalsIgnoreCase(""))
+    	 {
+   		   
+	   		    ismessageshow=1;
+	   		    perfdia.setBackground(Color.red);
+	     	      
+	 	 }
+    	 
+    	 
+    	   if(wellmd.getText().toString().equalsIgnoreCase(""))
+    	 {
+
+   		     ismessageshow=1;
+    	   		 wellmd.setBackground(Color.red);
+    	     	      
+    	 	  
+    	 }
+    	   if(welltvd.getText().toString().equalsIgnoreCase(""))
+    	 {
+
+   		   
+    	   		    ismessageshow=1;
+    	   		 welltvd.setBackground(Color.red);
+    	     	     
+    	 	  
+    	 }
+    	 
+    	   if(lateradepth.getText().toString().equalsIgnoreCase(""))
+    	 {
+
+   		   
+    	   		    ismessageshow=1;
+    	   		 lateradepth.setBackground(Color.red);
+    	     	      
+    	 }
+    	   if(lateraldepth.getText().toString().equalsIgnoreCase(""))
+    	 {
+
+   		   
+    	   		    ismessageshow=1;
+    	   		 lateraldepth.setBackground(Color.red);
+    	     	      
+    	 	 
+    	 }
+    	 
+    	 
+    	   if(textWellname.getText().toString().equalsIgnoreCase(""))
+    	 {
+
+   		     ismessageshow=1;
+    	   		 textWellname.setBackground(Color.red);
+    	     	     
+    	 	 
+    	 }
+    	   if(textlayerNo.getText().toString().equalsIgnoreCase(""))
+    	 {
+
+   		   
+    	   		    ismessageshow=1;
+    	   		 textlayerNo.setBackground(Color.red);
+    	     	      
+    	 	 
+    	 }
+    	 
+    	   if(textINJStages.getText().toString().equalsIgnoreCase(""))
+    	 {
+
+   		   
+    	   		 ismessageshow=1;
+    	   		 textINJStages.setBackground(Color.red);
+    	     	      
+    	 	 
+    	 }
+    	   
+    	   if(aciddencity.getText().toString().equalsIgnoreCase(""))
+      	 {
+
+     		   
+      	   		 ismessageshow=1;
+      	   	 aciddencity.setBackground(Color.red);
+      	     	      
+      	 	 
+      	 }
+    	   
+    	   
+    	   if(aciddissolving.getText().toString().equalsIgnoreCase(""))
+        	 {
+
+       		   
+        	   		 ismessageshow=1;
+        	   		aciddissolving.setBackground(Color.red);
+        	     	      
+        	 	 
+        	 }
+    	   
+    	   if(driverterconn.getText().toString().equalsIgnoreCase(""))
+      	 {
+
+     		   
+      	     ismessageshow=1;
+      	   	driverterconn.setBackground(Color.red);
+      	     	      
+      	 	 
+      	 }
+    	   
+    	   if(postprodpress.getText().toString().equalsIgnoreCase(""))
+        	 {
+
+       		   
+        	     ismessageshow=1;
+        	     postprodpress.setBackground(Color.red);
+        	     	      
+        	 	 
+        	 }
+    	   
+     
+ 		  
+    	if(ismessageshow==0)
+    	{
+    		return true;
+    	}
+    	else
+    	{
+    		return false;
+    	}
+    	   
+    	   
+    	 
+     }
      
 public  void resetFormData()
   {
 	  
-	
+	isupadate=false;
 	btnSave.setText("SAVE");
 	
-	ReservoirlithologyList.clear();
-	AcidInjectionPlanList1.clear();
-	jetdia.setText("");
+	 ReservoirlithologyList.clear();
+	 AcidInjectionPlanList1.clear();
+	 jetdia.setText("");
 	 maxpress.setText(""); 
 	 fracpress.setText("");
 	 tubfc.setText("");
@@ -1847,10 +3379,14 @@ public  void resetFormData()
 	 lateraldepth.setText("");
 	 
 	 textWellname.setText("");
-		 
+	 textWellname.setBackground(Color.WHITE);	 
 		
 		textlayerNo.setText("");
+		textlayerNo.setBackground(Color.WHITE);	 
+
 		textINJStages.setText("");
+		textINJStages.setBackground(Color.WHITE);	 
+
   
   }
 public static boolean isInteger(String s, int radix) {
@@ -1863,6 +3399,20 @@ public static boolean isInteger(String s, int radix) {
         if(Character.digit(s.charAt(i),radix) < 0) return false;
     }
     return true;
+}
+
+public static boolean isFloat(String s)
+{
+	try
+	{
+     Float   num1 = Float.parseFloat(s);
+      return true;
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+		return false;
+	}
 }
 
 
